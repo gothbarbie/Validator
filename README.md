@@ -109,21 +109,53 @@ if (Validator::isAlphaNumeric($string)) {
 *isDigit($string)*
 
 Checks that a string has only digits.
+```php
+<?php
+$string = "12345";
+if (Validator::isDigit($string)) {
+    echo "This is a valid string.";
+}
+?>
+```
 
 ### isEmail
 *isEmail($string)*
 
 Checks that a string is an email.
+```php
+<?php
+$string = "info@hannasoderstrom.com";
+if (Validator::isEmail($string)) {
+    echo "This is a valid email.";
+}
+?>
+```
 
 ### isUrl
 *isURL($string)*
 
 Checks that a string is an URL.
+```php
+<?php
+$string = "http://www.hannasoderstrom.com";
+if (Validator::isUrl($string)) {
+    echo "This is a valid URL.";
+}
+?>
+```
 
 ### isName
 *isName($string)*
 
 Checks that a string is a name (only space and letters)
+```php
+<?php
+$string = "Hanna Söderström";
+if (Validator::isName($string)) {
+    echo "This is a valid name.";
+}
+?>
+```
 
 
 ## Escaping
@@ -132,6 +164,9 @@ Checks that a string is a name (only space and letters)
 *html($string)*
 
 Escapes a string so that it can safely be used in HTML.
+```php
+<p>Name: <?php Validator::html($name); ?></p>
+```
 
 ## Author
 * Hanna Söderström
