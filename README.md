@@ -1,64 +1,127 @@
 # Validator
-A PHP validator class. Lets you validate data according to different sets of rules, listed below.
+A (static) PHP validator class. Lets you validate data according to different sets of rules, listed below.
 
 ## Rules
 
 ### isMinLength
-*rule_isMinLength($string, $max)*
+*isMinLength($string, $max)*
 Checks if a string has a minimum of x characters.
+```php
+<?php
+$name = "Hanna";
+if (Validator::isMinLength($name, 3)) echo "Valid";
+?>
+```
 
 ### isMaxLength
-*rule_isMaxLength($string, $max)*
+*isMaxLength($string, $max)*
 
 Checks if a string has a maximum of x characters.
+```php
+<?php
+$name = "Hanna";
+if (!Validator::isMaxLength($name, 3)) echo "Name is too long (maximum 3 characters), use a shorter name";
+?>
+```
 
 ### matches
-*rule_matches($string, $matches)*
+*matches($string, $matches)*
 
 Checks if a string matches another.
+```php
+<?php
+$name    = "Hanna";
+$matches = "Hanna";
+if (Validator::matches($name, $matches)) {
+    echo "Name matches";    
+} else {
+    echo "Name is not valid";
+}
+?>
+```
 
 ### hasNoSpecialChars
-*rule_hasNoSpecialChars($string)*
+*hasNoSpecialChars($string)*
 
-Checks that a string has no special characters.
+Checks that a string has no special characters: [\'^£$%&*}{@#~><>|=_+¬]
+```php
+<?php
+$string = "<script>window.alert("Hello");</script>";
+if (Validator::hasNoSpecialChars($string)) {
+    echo "Contains invalid characters!";    
+}
+?>
+```
 
 ### isTimeStamp
-*rule_isTimeStamp($string)*
+*isTimeStamp($string)*
 
 Checks that a string is a valid timestamp.
+```php
+<?php
+$timestamp = "2016-02-15";
+if (Validator::isTimeStamp($timestamp)) {
+    echo "This is a valid timestamp.";    
+}
+?>
+```
 
 ### isYearMonth
-*rule_isYearMonth($string)*
+*isYearMonth($string)*
 
 Checks that a string is made of year and month.
+```php
+<?php
+$yearMonth = "2016-02";
+if (Validator::isYearMonth($yearMonth)) {
+    echo "This is a valid.";    
+}
+?>
+```
 
 ### isAlphabetic
-*rule_isAlphabetic($string)*
+*isAlphabetic($string)*
 
 Checks that a string is alphabetic.
+```php
+<?php
+$string = "2016-02";
+if (!Validator::isAlphabetic($string)) {
+    echo "Must contain _letters_ only."
+}
+?>
+```
 
 ### isAlphaNumeric
-*rule_isAlphaNumeric($string)*
+*isAlphaNumeric($string)*
 
 Checks that a string is alphanumeric.
+```php
+<?php
+$string = "Month12";
+if (Validator::isAlphaNumeric($string)) {
+    echo "This is a valid string.";
+}
+?>
+```
 
 ### isDigit
-*rule_isDigit($string)*
+*isDigit($string)*
 
 Checks that a string has only digits.
 
 ### isEmail
-*rule_isEmail($string)*
+*isEmail($string)*
 
 Checks that a string is an email.
 
 ### isUrl
-*rule_isURL($string)*
+*isURL($string)*
 
 Checks that a string is an URL.
 
 ### isName
-*rule_isName($string)*
+*isName($string)*
 
 Checks that a string is a name (only space and letters)
 
