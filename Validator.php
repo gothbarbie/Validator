@@ -7,11 +7,11 @@
  *
  * Rules
  *
- * isMinLength - Checks if a string has a minimum of x characters.
- * isMinLength($string, $minLength)
+ * MinLength - Checks if a string has a minimum of x characters.
+ * MinLength($string, $minLength)
  *
- * isMaxLength - Checks if a string has a maximum of x characters.
- * isMaxLength($string, $maxLength)
+ * MaxLength - Checks if a string has a maximum of x characters.
+ * MaxLength($string, $maxLength)
  *
  * Matches - Checks if a string matches another.
  * matches($value, $matches)
@@ -19,29 +19,29 @@
  * hasNoSpecialChars - Checks that a string has no special characters.
  * hasNoSpecialChars($string)
  *
- * isTimeStamp - Checks that a string is a valid timestamp.
- * isTimeStamp($string)
+ * TimeStamp - Checks that a string  a valid timestamp.
+ * TimeStamp($string)
  *
- * isYearMonth - Checks that a string is made of year and month.
- * isYearMonth($string)
+ * YearMonth - Checks that a string  made of year and month.
+ * YearMonth($string)
  *
- * isAlphabetic - Checks that a string is alphabetic.
- * isAlphabetic($string)
+ * Alphabetic - Checks that a string  alphabetic.
+ * Alphabetic($string)
  *
- * isAlphaNumeric - Checks that a string is alphanumeric.
- * isAlphaNumeric($string)
+ * AlphaNumeric - Checks that a string  alphanumeric.
+ * AlphaNumeric($string)
  *
- * isDigit - Checks that a string has only digits.
- * isDigit($digit)
+ * Digit - Checks that a string has only digits.
+ * Digit($digit)
  *
- * isEmail - Checks that a string is an email.
- * isEmail($string)
+ * Email - Checks that a string  an email.
+ * Email($string)
  *
- * isUrl - Checks that a string is an URL.
- * isUrl($string)
+ * Url - Checks that a string  an URL.
+ * Url($string)
  *
- * isName - Checks that a string is a name (only space and letters)
- * isName($string)
+ * Name - Checks that a string  a name (only space and letters)
+ * Name($string)
  *
  * html - Escapes a string so that it can safely be used in HTML.
  *
@@ -54,7 +54,7 @@ class Validator
     * @param integer $minLength
     * @return boolean
     */
-    static public function isMinLength($field, $value, $requirement)
+    static public function minLength($field, $value, $requirement)
     {
         return mb_strlen($value) >= $requirement;
     }
@@ -65,7 +65,7 @@ class Validator
     * @param integer $maxLength
     * @return boolean
     */
-    static public function isMaxLength($field, $value, $requirement)
+    static public function maxLength($field, $value, $requirement)
     {
         return mb_strlen($value) <= $requirement;
     }
@@ -100,11 +100,11 @@ class Validator
     }
 
    /**
-    * Rule - Requires string is Timestamp (YYYY-MM-DD)
+    * Rule - Requires string  Timestamp (YYYY-MM-DD)
     * @param string $date
     * @return boolean
     */
-    public static function isTimeStamp($field, $value, $requirement)
+    public static function timeStamp($field, $value, $requirement)
     {
        if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $value)) {
            return true;
@@ -113,11 +113,11 @@ class Validator
     }
 
    /**
-    * Rule - Requires string is Year (YYYY)
+    * Rule - Requires string  Year (YYYY)
     * @param string $year
     * @return boolean
     */
-    public static function isYearMonth($field, $value, $requirement)
+    public static function yearMonth($field, $value, $requirement)
     {
        if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $value)) {
            return true;
@@ -126,32 +126,32 @@ class Validator
     }
 
    /**
-    * Rule - Requires string is alphabetic (A-Za-z)
+    * Rule - Requires string  alphabetic (A-Za-z)
     * @param string $string
     * @return boolean
     */
-    public static function isAlphabetic($field, $value, $requirement)
+    public static function alphabetic($field, $value, $requirement)
     {
        $value = str_replace(' ', '', $value); // Remove spaces
        return ctype_alpha($value);
     }
 
    /**
-    * Rule - Requires string is alphanumeric (A-Za-z0-9)
+    * Rule - Requires string  alphanumeric (A-Za-z0-9)
     * @param string $string
     * @return boolean
     */
-    public static function isAlphaNumeric($field, $value, $requirement)
+    public static function alphaNumeric($field, $value, $requirement)
     {
        return ctype_alnum($value);
    }
 
    /**
-    * Rule - Requires string is digit(s) (0-9)
+    * Rule - Requires string  digit(s) (0-9)
     * @param string $digit
     * @return boolean
     */
-    public static function isDigit($field, $value, $requirement)
+    public static function digit($field, $value, $requirement)
     {
        return ctype_digit($value);
     }
@@ -159,7 +159,7 @@ class Validator
    /**
     * Rule - Requires string to be email
     */
-    public static function isEmail($field, $value, $requirement)
+    public static function email($field, $value, $requirement)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
@@ -167,7 +167,7 @@ class Validator
    /**
     *  Rule - Requires string to be URL (http(s) or ftp)
     */
-    public static function isUrl($field, $value, $requirement)
+    public static function url($field, $value, $requirement)
     {
         if ( preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value) )
         {
@@ -180,7 +180,7 @@ class Validator
     *  Rule - Requires string to be a name
     *  (only letters and space allowed)
     */
-    public static function isName($field, $value, $requirement)
+    public static function name($field, $value, $requirement)
     {
         if ( preg_match("/^[a-zA-Z ]*$/", $value) )
         {
@@ -190,16 +190,16 @@ class Validator
     }
 
    /**
-    *  Rule - Item is required
+    *  Rule - Item  required
     */
-    public static function isRequired($field, $value, $requirement)
+    public static function required($field, $value, $requirement)
     {
         return !empty(trim($value));
     }
 
 
    /**
-    * Rule - Requires value is unique in specific table and column
+    * Rule - Requires value  unique in specific table and column
     * @param Database $databaseHandler
     * @param string $table
     * @param string $column
