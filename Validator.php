@@ -48,19 +48,15 @@
  */
 class Validator
 {
-
    /**
     * Rule - Requires string of minimum length.
     * @param string $string
     * @param integer $minLength
     * @return boolean
     */
-    static public function isMinLength($string, $minLength)
+    static public function isMinLength($field, $value, $requirement)
     {
-       if ($string AND strlen(trim($string)) < $minLength) {
-           return false;
-       }
-       return true;
+        return mb_strlen($value) >= $requirement;
     }
 
    /**
@@ -69,12 +65,9 @@ class Validator
     * @param integer $maxLength
     * @return boolean
     */
-    static public function isMaxLength($string, $maxLength)
+    static public function isMaxLength($field, $value, $requirement)
     {
-       if ($string AND strlen(trim($string)) > $maxLength) {
-           return false;
-       }
-       return true;
+        return mb_strlen($value) <= $requirement;
     }
 
    /**
@@ -83,9 +76,9 @@ class Validator
     * @param mixed $matches
     * @return boolean
     */
-    public static function matches($value, $matches)
+    public static function matches($field, $value, $requirement)
     {
-       if ($value === $matches) {
+       if ($value === $requirement) {
            return true;
        }
        return false;
@@ -97,9 +90,9 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function hasNoSpecialChars($string)
+    public static function hasNoSpecialChars($field, $value, $requirement)
     {
-       if (preg_match('/[\'^£$%&*}{@#~><>|=_+¬]/', $string))
+       if (preg_match('/[\'^£$%&*}{@#~><>|=_+¬]/', $value))
        {
            return false;
        }
@@ -111,9 +104,9 @@ class Validator
     * @param string $date
     * @return boolean
     */
-    public static function isTimeStamp($date)
+    public static function isTimeStamp($field, $value, $requirement)
     {
-       if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $date)) {
+       if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $value)) {
            return true;
        }
        return false;
@@ -124,9 +117,9 @@ class Validator
     * @param string $year
     * @return boolean
     */
-    public static function isYearMonth($year)
+    public static function isYearMonth($field, $value, $requirement)
     {
-       if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $year)) {
+       if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $value)) {
            return true;
        }
        return false;
@@ -137,10 +130,10 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function isAlphabetic($string)
+    public static function isAlphabetic($field, $value, $requirement)
     {
-       $string = str_replace(' ', '', $string); // Remove spaces
-       return ctype_alpha($string);
+       $value = str_replace(' ', '', $value); // Remove spaces
+       return ctype_alpha($value);
     }
 
    /**
@@ -148,9 +141,9 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function isAlphaNumeric($string)
+    public static function isAlphaNumeric($field, $value, $requirement)
     {
-       return ctype_alnum($string);
+       return ctype_alnum($value);
    }
 
    /**
@@ -158,28 +151,25 @@ class Validator
     * @param string $digit
     * @return boolean
     */
-    public static function isDigit($digit)
+    public static function isDigit($field, $value, $requirement)
     {
-       return ctype_digit($digit);
+       return ctype_digit($value);
     }
 
    /**
     * Rule - Requires string to be email
     */
-    public static function isEmail($email)
+    public static function isEmail($field, $value, $requirement)
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return true;
-        }
-        return false;
+        return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
    /**
     *  Rule - Requires string to be URL (http(s) or ftp)
     */
-    public static function isUrl($string)
+    public static function isUrl($field, $value, $requirement)
     {
-        if ( preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $string) )
+        if ( preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value) )
         {
             return true;
         }
@@ -190,14 +180,23 @@ class Validator
     *  Rule - Requires string to be a name
     *  (only letters and space allowed)
     */
-    public static function isName($string)
+    public static function isName($field, $value, $requirement)
     {
-        if ( preg_match("/^[a-zA-Z ]*$/", $string) )
+        if ( preg_match("/^[a-zA-Z ]*$/", $value) )
         {
             return true;
         }
         return false;
     }
+
+   /**
+    *  Rule - Item is required
+    */
+    public static function isRequired($field, $value, $requirement)
+    {
+        return !empty(trim($value));
+    }
+
 
    /**
     * Rule - Requires value is unique in specific table and column
