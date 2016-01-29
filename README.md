@@ -53,8 +53,8 @@ if (Validator::hasNoSpecialChars($string)) {
 ?>
 ```
 
-### TimeStamp
-*isTimeStamp($string)*
+### timeStamp
+*timeStamp($string)*
 
 Checks that a string is a valid timestamp.
 ```php
