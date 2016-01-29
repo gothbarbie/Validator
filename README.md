@@ -3,7 +3,7 @@ A (static) PHP validator class. Lets you validate data according to different se
 
 ## Rules
 
-### isMinLength
+### minLength
 *isMinLength($string, $max)*
 Checks if a string has a minimum of x characters.
 ```php
@@ -13,7 +13,7 @@ if (Validator::isMinLength($name, 3)) echo "Valid";
 ?>
 ```
 
-### isMaxLength
+### maxLength
 *isMaxLength($string, $max)*
 
 Checks if a string has a maximum of x characters.
@@ -53,7 +53,7 @@ if (Validator::hasNoSpecialChars($string)) {
 ?>
 ```
 
-### isTimeStamp
+### TimeStamp
 *isTimeStamp($string)*
 
 Checks that a string is a valid timestamp.
@@ -66,7 +66,7 @@ if (Validator::isTimeStamp($timestamp)) {
 ?>
 ```
 
-### isYearMonth
+### yearMonth
 *isYearMonth($string)*
 
 Checks that a string is made of year and month.
@@ -79,7 +79,7 @@ if (Validator::isYearMonth($yearMonth)) {
 ?>
 ```
 
-### isAlphabetic
+### alphabetic
 *isAlphabetic($string)*
 
 Checks that a string is alphabetic.
@@ -92,7 +92,7 @@ if (!Validator::isAlphabetic($string)) {
 ?>
 ```
 
-### isAlphaNumeric
+### alphaNumeric
 *isAlphaNumeric($string)*
 
 Checks that a string is alphanumeric.
@@ -105,7 +105,7 @@ if (Validator::isAlphaNumeric($string)) {
 ?>
 ```
 
-### isDigit
+### digit
 *isDigit($string)*
 
 Checks that a string has only digits.
@@ -118,7 +118,7 @@ if (Validator::isDigit($string)) {
 ?>
 ```
 
-### isEmail
+### email
 *isEmail($string)*
 
 Checks that a string is an email.
@@ -131,7 +131,7 @@ if (Validator::isEmail($string)) {
 ?>
 ```
 
-### isUrl
+### url
 *isURL($string)*
 
 Checks that a string is an URL.
@@ -144,7 +144,7 @@ if (Validator::isUrl($string)) {
 ?>
 ```
 
-### isName
+### name
 *isName($string)*
 
 Checks that a string is a name (only space and letters)
