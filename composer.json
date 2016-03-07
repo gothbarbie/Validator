@@ -2,7 +2,7 @@
     "name": "gothbarbie/Validator",
     "description": "Validator class",
     "keywords": "php",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "php": "^5.6"
     },
