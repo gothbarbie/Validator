@@ -45,6 +45,7 @@
  *
  * html - Escapes a string so that it can safely be used in HTML.
  *
+ * isJson - Checks if a variable is valid JSON-format or not.
  */
 class Validator
 {
@@ -54,7 +55,7 @@ class Validator
     * @param integer $minLength
     * @return boolean
     */
-    static public function minLength($field, $value, $requirement)
+    static public function minLength($value, $requirement)
     {
         return mb_strlen($value) >= $requirement;
     }
@@ -65,7 +66,7 @@ class Validator
     * @param integer $maxLength
     * @return boolean
     */
-    static public function maxLength($field, $value, $requirement)
+    static public function maxLength($value, $requirement)
     {
         return mb_strlen($value) <= $requirement;
     }
@@ -76,7 +77,7 @@ class Validator
     * @param mixed $matches
     * @return boolean
     */
-    public static function matches($field, $value, $requirement)
+    public static function matches($value, $requirement)
     {
        if ($value === $requirement) {
            return true;
@@ -90,7 +91,7 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function hasNoSpecialChars($field, $value, $requirement)
+    public static function hasNoSpecialChars($value)
     {
        if (preg_match('/[\'^£$%&*}{@#~><>|=_+¬]/', $value))
        {
@@ -104,7 +105,7 @@ class Validator
     * @param string $date
     * @return boolean
     */
-    public static function timeStamp($field, $value, $requirement)
+    public static function timeStamp($value)
     {
        if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $value)) {
            return true;
@@ -117,7 +118,7 @@ class Validator
     * @param string $year
     * @return boolean
     */
-    public static function yearMonth($field, $value, $requirement)
+    public static function yearMonth($value)
     {
        if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])$/", $value)) {
            return true;
@@ -130,7 +131,7 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function alphabetic($field, $value, $requirement)
+    public static function alphabetic($value)
     {
        $value = str_replace(' ', '', $value); // Remove spaces
        return ctype_alpha($value);
@@ -141,7 +142,7 @@ class Validator
     * @param string $string
     * @return boolean
     */
-    public static function alphaNumeric($field, $value, $requirement)
+    public static function alphaNumeric($value)
     {
        return ctype_alnum($value);
    }
@@ -151,7 +152,7 @@ class Validator
     * @param string $digit
     * @return boolean
     */
-    public static function digit($field, $value, $requirement)
+    public static function digit($value)
     {
        return ctype_digit($value);
     }
@@ -159,7 +160,7 @@ class Validator
    /**
     * Rule - Requires string to be email
     */
-    public static function email($field, $value, $requirement)
+    public static function email($value)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
@@ -167,7 +168,7 @@ class Validator
    /**
     *  Rule - Requires string to be URL (http(s) or ftp)
     */
-    public static function url($field, $value, $requirement)
+    public static function url($value)
     {
         if ( preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $value) )
         {
@@ -180,7 +181,7 @@ class Validator
     *  Rule - Requires string to be a name
     *  (only letters and space allowed)
     */
-    public static function name($field, $value, $requirement)
+    public static function name($value)
     {
         if ( preg_match("/^[a-zA-Z ]*$/", $value) )
         {
@@ -192,7 +193,7 @@ class Validator
    /**
     *  Rule - Item  required
     */
-    public static function required($field, $value, $requirement)
+    public static function required($value)
     {
         return !empty(trim($value));
     }
@@ -226,5 +227,13 @@ class Validator
         } else {
             echo $clean;
         }
+    }
+
+    public static function isJson($string)
+    {
+        if (!is_array($string) && json_decode($string)) {
+            return (json_last_error() == JSON_ERROR_NONE);
+        }
+        return false;
     }
 }
